@@ -11,6 +11,14 @@ services:
   mongo:
     image: mongo
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - published: 27017
+        target: 27017
+  movies: 
+    build:
+        context: ./services/movies/.
+        dockerfile: Dockerfile
+    ports:
+      - published: 5000
+        target: 5000
+    env_file: ./services/movies/.env
